@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -13,48 +14,42 @@ import com.github.fommil.ff.Team.Colours;
 
 public class TeamTest {
 	
-	static Colours colors;
-	static Team team;
-	static Tactics tactices;
-	
-	@BeforeClass
-	public static void setUp()
-	{
-		colors = new Colours(Color.black, Color.blue, Color.cyan, Color.GREEN);
-		team = new Team();
-		tactices = new Tactics("One");
-	}
 
 	@Test
-	public void verifyColorsTest()
+	public void verifyColors()
 	{
-		assertTrue(colors.getPrimary().equals(Color.black));
-		assertTrue(colors.getSecondary().equals(Color.blue));
-		assertTrue(colors.getShorts().equals(Color.cyan));
-		assertTrue(colors.getSocks().equals(Color.GREEN));
+		Colours colors  = new Colours(Color.black, Color.blue, Color.cyan, Color.GREEN);
+		assertEquals(colors.getPrimary(), (Color.black));
+		assertEquals(colors.getSecondary(), (Color.blue));
+		assertEquals(colors.getShorts(), (Color.cyan));
+		assertEquals(colors.getSocks(), (Color.GREEN));
 	}
 		
 	@Test
-	public void verifyModifiedHomeKitTest()
+	public void verifyModifiedHomeKit()
 	{
+		Team team = new Team();
 		team.setHomeKit(new Colours(Color.RED, Color.RED, Color.BLUE, Color.RED));
-		assertTrue(team.getHomeKit().getPrimary().equals(
+		assertEquals(team.getHomeKit().getPrimary(), (
 				(new Colours(Color.RED, Color.RED, Color.BLUE, Color.RED).getPrimary())));
 	}
 	
 	@Test
-	public void verifyModifiedAwayKitTest()
+	public void verifyModifiedAwayKit()
 	{
+		Team team = new Team();
 		team.setAwayKit(new Colours(Color.RED, Color.RED, Color.BLUE, Color.RED));
-		assertTrue(team.getAwayKit().getPrimary().equals(
+		assertEquals(team.getAwayKit().getPrimary(), (
 				(new Colours(Color.RED, Color.RED, Color.BLUE, Color.RED)).getPrimary()));
 	}
 	
 	@Test
-	public void verifyTacticsTest()
+	public void verifyTactics()
 	{
+		Team team = new Team();
+		Tactics tactices = new Tactics("One");
 		team.setCurrentTactics(tactices);
-		assertTrue(team.getCurrentTactics().equals(tactices));
+		assertEquals(team.getCurrentTactics(), (tactices));
 	}
 	
 	

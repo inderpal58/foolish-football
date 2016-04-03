@@ -21,7 +21,7 @@ public class mainTest {
 	}
 
 	@Test
-	public void playerWinSmokeTest() throws IOException, InterruptedException {
+	public void playerWinSmoke() throws IOException, InterruptedException {
 		//initiate game
 		Main.main(null);
 

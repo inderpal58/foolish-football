@@ -12,18 +12,18 @@ public class TacticsParserTest {
 	
 	
 	@Test
-	public void getSwosTacticsReturnCountTest() throws IOException
+	public void getSwosTacticsReturnCount() throws IOException
 	{
-		assertTrue("Error, No Tactics", TacticsParser.getSwosTactics(Main.SWOS).size() == 12);	
+		assertEquals(TacticsParser.getSwosTactics(Main.SWOS).size(), 12);	
 	}
 
 	
 
 	@Test  (expected=IllegalArgumentException.class) 
-	public void parseTacsTest() throws IOException
+	public void parseTacs() throws IOException
 	{
 		TacticsParser tp  = new TacticsParser();
 		byte[] b = new byte[369];
-		assertTrue("Error, Something wrong", tp.parseTacs(b).getName().length() ==  0);	
+		assertEquals(tp.parseTacs(b).getName().length(), 0);	
 	}
 }

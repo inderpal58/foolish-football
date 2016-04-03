@@ -13,52 +13,54 @@ import com.github.fommil.ff.physics.Position;
 public class TacticsTest {
 	
 	
-	static Position position;
-	static Pitch pitch;
-	static Tactics.BallZone ball;
-	static Tactics.PlayerZone player;	
-	static Tactics tactices;
-	
-	@BeforeClass
-	public static void setUp()
-	{
-		pitch = new Pitch();
-		position = new Position(2,2,2);
-		ball = new Tactics.BallZone(position, pitch);
-		player = new Tactics.PlayerZone(2,2);
-		tactices = new Tactics("One");
-	}
+	Position position;
+	Pitch pitch;
+	Tactics.BallZone ball;
+	Tactics.PlayerZone player;	
+	Tactics tactices;
+
 	
 	@Test
-	public void verifyBallPositionTest()
+	public void verifyBallPosition()
 	{
 		Tactics.BallZone ball = new Tactics.BallZone(2,2);
-		assertTrue(ball.toString().equals("(2, 2)"));
+		assertEquals(ball.toString(),("(2, 2)"));
 	}
 	
 	@Test
 	public void verifyBallPositionInPitchTest()
 	{
-		assertTrue(ball.toString().equals("(4, 0)"));
+		pitch = new Pitch();
+		position = new Position(2,2,2);
+		ball = new Tactics.BallZone(position, pitch);
+		assertEquals(ball.toString(), ("(4, 0)"));
 	}
 	
 	@Test
 	public void verifyPlayerPositionTest()
 	{
-		assertTrue(player.toString().equals("(2, 2)"));
+		player = new Tactics.PlayerZone(2,2);
+		assertEquals(player.toString(), ("(2, 2)"));
 	}
 	
 	@Test
 	public void verifyPlayerPositionInPitchTest()
 	{
-		assertTrue(player.getCentre(pitch).equals(new Position(50.516666666666666, 21.1, 0.0)));
+		player = new Tactics.PlayerZone(2,2);
+		pitch = new Pitch();
+		assertEquals(player.getCentre(pitch), (new Position(50.516666666666666, 21.1, 0.0)));
 	}
 	
 	@Test
 	public void verifyPlayerZoneTest()
 	{
+		player = new Tactics.PlayerZone(2,2);
+		pitch = new Pitch();
+		position = new Position(2,2,2);
+		ball = new Tactics.BallZone(position, pitch);
+		tactices = new Tactics("One");
 		tactices.set(ball, 2, player);
-		assertTrue(tactices.getZone(ball, 2, Direction.NORTH).equals(player));
+		assertEquals(tactices.getZone(ball, 2, Direction.NORTH), (player));
 	}
 
 }

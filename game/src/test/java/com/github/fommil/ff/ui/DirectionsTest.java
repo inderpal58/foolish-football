@@ -10,53 +10,53 @@ import com.github.fommil.ff.Direction;
 public class DirectionsTest {
 	
 	@Test
-	public void SouthTest()
+	public void South()
 	{
-		assertTrue(Direction.valueOf(Math.PI).equals(Direction.SOUTH));
+		assertEquals(Direction.valueOf(Math.PI), Direction.SOUTH);
 	}
 	
 	@Test
-	public void AllSouthTest()
+	public void ForMinusAngleSouth()
 	{
-		assertTrue(Direction.valueOf(-Math.PI).equals(Direction.SOUTH));
+		assertEquals(Direction.valueOf(-Math.PI), Direction.SOUTH);
 	}
 	
 	
 	@Test
-	public void NORTHTest()
+	public void NORTH()
 	{
-		assertTrue(Direction.valueOf(0).equals(Direction.NORTH));
+		assertEquals(Direction.valueOf(0), Direction.NORTH);
 	}
 	
 	@Test
-	public void WESTTest()
+	public void WEST()
 	{
-		assertTrue(Direction.valueOf(-Math.PI / 2).equals(Direction.WEST));
+		assertEquals(Direction.valueOf(-Math.PI / 2), Direction.WEST);
 	}
 	@Test
-	public void EASTTest()
+	public void EAST()
 	{
-		assertTrue(Direction.valueOf(Math.PI / 2).equals(Direction.EAST));
+		assertEquals(Direction.valueOf(Math.PI / 2), Direction.EAST);
 	}
 	@Test
-	public void NORTH_EASTTest()
+	public void NORTH_EAST()
 	{
-		assertTrue(Direction.valueOf(Math.PI / 4).equals(Direction.NORTH_EAST));
+		assertEquals(Direction.valueOf(Math.PI / 4), Direction.NORTH_EAST);
 	}
 	@Test
-	public void NORTH_WESTTest()
+	public void NORTH_WEST()
 	{
-		assertTrue(Direction.valueOf(-Math.PI / 4).equals(Direction.NORTH_WEST));
+		assertEquals(Direction.valueOf(-Math.PI / 4), Direction.NORTH_WEST);
 	}
 	@Test
-	public void sSOUTH_EASTTest()
+	public void SOUTH_EAST()
 	{
-		assertTrue(Direction.valueOf(3 * Math.PI / 4).equals(Direction.SOUTH_EAST));
+		assertEquals(Direction.valueOf(3 * Math.PI / 4), Direction.SOUTH_EAST);
 	}
 	@Test
-	public void sOUTH_WESTTest()
+	public void SOUTH_WEST()
 	{
-		assertTrue(Direction.valueOf(-3 * Math.PI / 4).equals(Direction.SOUTH_WEST));
+		assertEquals(Direction.valueOf(-3 * Math.PI / 4), Direction.SOUTH_WEST);
 	}
 
 }

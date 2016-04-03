@@ -1,26 +1,24 @@
 package com.github.fommil.ff.swos;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
-
 import org.junit.Test;
-
 import com.github.fommil.ff.swos.SpriteParser;
-
 
 public class SpriteParserTest {
 	
 	@Test
-	public void verifyNumberOfSpritesTest() throws IOException
+	public void verifyNumberOfSprites() throws IOException
 	{
 		SpriteParser.main(null);
 		
-		java.io.File folder = new java.io.File("data/sprites");
+		File folder = new File("data/sprites");
 
 		// this is the filter 
-		java.io.FilenameFilter pitchFilter = new java.io.FilenameFilter() {
+		FilenameFilter pitchFilter = new FilenameFilter() {
 		 public boolean accept(File dir, String name) {
 		   return name.toLowerCase().contains("charset");
 		 }
@@ -29,7 +27,7 @@ public class SpriteParserTest {
 		// list the files in the data folder
 		String[] filenames = folder.list(pitchFilter);
 		
-		assertTrue("Error, Number of pitch created is not matching", filenames.length > 0);
+		assertEquals(filenames.length, 227);
 	}
 
 }
