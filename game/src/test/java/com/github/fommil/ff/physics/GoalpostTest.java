@@ -60,13 +60,20 @@ public class GoalpostTest {
 	}
 	
 	@Test
-	public void createGoalpost() {
+	public void createGoalpost_North() {
 		Goalpost gp = new DummyPhysics().createGoalpost(Direction.NORTH);
 		assertEquals(gp.getFacing(),Direction.NORTH);
 	}
 	
 	@Test
-	public void ballisInside() {
+	public void createGoalpost_South() {
+		Goalpost gp = new DummyPhysics().createGoalpost(Direction.SOUTH);
+		assertEquals(gp.getFacing(),Direction.SOUTH);
+	}
+	
+	
+	@Test
+	public void newBallIsNotInside() {
 		Ball ball = new DummyPhysics().createBall();
 		Goalpost gp = new DummyPhysics().createGoalpost(Direction.NORTH);
 		assertFalse(gp.isInside(ball));	
