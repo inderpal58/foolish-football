@@ -18,23 +18,21 @@ import com.github.fommil.ff.swos.TacticsParser;
 public class GamePhysicsTest {
 
 	@Test
-	public void gamePhysicsTest() throws IOException {
+	public void testTeamSizeEqual() throws IOException {
+		
 		Map<String, Tactics> swosTactics = TacticsParser.getSwosTactics(Main.SWOS);
 		Team a = new Team();
+		
 		a.setCurrentTactics(swosTactics.get("442"));
 		Team b = new Team();
+		
 		b.setCurrentTactics(swosTactics.get("433"));
-		GamePhysics gp = new GamePhysics(
-							a,
-							b, 
-							new Pitch());
-		int count = 0;
-		Iterator itr = gp.getPlayers().iterator();
-		while(itr.hasNext()) {
-			count= count+1;
-			itr.next();
-		}
-		assertEquals(count,12);	
+		GamePhysics gp = new GamePhysics(a,b,new Pitch());
+		
+		a= gp.getTeamA();
+		b= gp.getTeamB();
+		
+		assertEquals(b.getPlayers().size(),a.getPlayers().size());	
 	}
 
 }
