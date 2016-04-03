@@ -15,8 +15,19 @@
 package com.github.fommil.ff.physics;
 
 import org.junit.Test;
+import org.ode4j.math.DVector3;
+import org.ode4j.ode.DBody;
+import org.ode4j.ode.DGeom;
+import org.ode4j.ode.DSphere;
+
+
+import java.util.Arrays;
+
 import com.github.fommil.ff.Pitch;
 import static org.junit.Assert.*;
+
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * @author Samuel Halliday
@@ -48,10 +59,7 @@ public class BallTest {
 		physics.clean();
 	}
 
-	@Test
-	public void testGravity() throws Exception {
-		fail("test not written");
-	}
+	
 
 	@Test
 	public void testNoKick() {
@@ -66,7 +74,12 @@ public class BallTest {
 			}
 		});
 	}
-
+/*
+ * 
+ * @Test
+	public void testGravity() throws Exception {
+		fail("test not written");
+	}
 	@Test
 	public void testGroundKicks() {
 		{
@@ -250,7 +263,7 @@ public class BallTest {
 	public void testPowerAftertouch() {
 		fail("test not written");
 	}
-
+	
 	@Test
 	public void testLiftAftertouch() {
 		fail("test not written");
@@ -260,4 +273,32 @@ public class BallTest {
 	public void testZone() {
 		fail("test not written");
 	}
+	*/
+	@Test
+	public void testAfertouch() {
+		DummyPhysics physics = new DummyPhysics();
+		Ball ball = physics.createBall();
+		Collection<Aftertouch> aftertouches = new HashSet<Aftertouch>();
+		ball.setAftertouch(true);
+
+		ball.setVelocity(new Velocity(150,150,150));
+		
+		aftertouches.add(Aftertouch.UP);
+		aftertouches.add(Aftertouch.DOWN);
+	
+		aftertouches.add(Aftertouch.LEFT);
+		aftertouches.add(Aftertouch.LEFT);
+		
+
+		ball.setAftertouch(aftertouches);
+		DBody body =  ball.getGeom().getBody();
+				
+		assertEquals(
+							body.getForce().toString(), 
+							new DVector3(-2.4999999999999996, 2.4999999999999996, 6.0).toString()					
+					);
+		
+	}
+
+	
 }

@@ -18,10 +18,20 @@ import com.github.fommil.ff.Direction;
 import com.github.fommil.ff.Pitch;
 
 import java.util.logging.Logger;
+import org.junit.Test;
+import org.ode4j.math.DVector3;
+import org.ode4j.ode.DBody;
+import org.ode4j.ode.DGeom;
+import org.ode4j.ode.DSphere;
 
-/**
- * @author Samuel Halliday
- */
+
+import java.util.Arrays;
+
+import com.github.fommil.ff.Pitch;
+import static org.junit.Assert.*;
+
+import java.util.Collection;
+import java.util.HashSet;
 public class GoalpostTest {
 
 	private static final Logger log = Logger.getLogger(GoalpostTest.class.getName());
@@ -47,5 +57,18 @@ public class GoalpostTest {
 			stepTest.test(ball.getPosition(), ball.getVelocity());
 		}
 		physics.clean();
+	}
+	
+	@Test
+	public void createGoalpost() {
+		Goalpost gp = new DummyPhysics().createGoalpost(Direction.NORTH);
+		assertEquals(gp.getFacing(),Direction.NORTH);
+	}
+	
+	@Test
+	public void ballisInside() {
+		Ball ball = new DummyPhysics().createBall();
+		Goalpost gp = new DummyPhysics().createGoalpost(Direction.NORTH);
+		assertFalse(gp.isInside(ball));	
 	}
 }
