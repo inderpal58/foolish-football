@@ -166,7 +166,6 @@ public class PlayerTest {
 	
 	@Test
 	public void playerState_RUN() {
-		
 		Player p = new DummyPhysics().createPlayer(5,new PlayerStats());
 		
 		p.body.setAngularVel(0, 0, 0);
@@ -174,7 +173,6 @@ public class PlayerTest {
 		p.body.setLinearVel(5, 5, -1);
 		
 		assertEquals(p.getState(),Player.PlayerState.RUN);	
-		
 	}
 	
 	
