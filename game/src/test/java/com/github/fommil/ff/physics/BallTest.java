@@ -293,10 +293,7 @@ public class BallTest {
 		ball.setAftertouch(aftertouches);
 		DBody body =  ball.getGeom().getBody();
 				
-		assertEquals(
-							body.getForce().toString(), 
-							new DVector3(-2.4999999999999996, 2.4999999999999996, 6.0).toString()					
-					);
+		assertEquals(body.getForce(), new DVector3(-2.4999999999999996, 2.4999999999999996, 6.0));
 		
 	}
 
