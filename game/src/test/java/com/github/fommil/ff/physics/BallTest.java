@@ -17,11 +17,6 @@ package com.github.fommil.ff.physics;
 import org.junit.Test;
 import org.ode4j.math.DVector3;
 import org.ode4j.ode.DBody;
-import org.ode4j.ode.DGeom;
-import org.ode4j.ode.DSphere;
-
-
-import java.util.Arrays;
 
 import com.github.fommil.ff.Pitch;
 import static org.junit.Assert.*;
@@ -33,6 +28,159 @@ import java.util.HashSet;
  * @author Samuel Halliday
  */
 public class BallTest {
+	
+	private static final double dt = 0.01;
+
+	private static final double EPSILON = 0.0001;
+
+	private final Pitch pitch = new Pitch();
+
+	private final Position centre = pitch.getCentre();
+
+	interface Tester {
+
+		void test(Position s, Velocity v);
+	}
+
+	void testHelper(Position position, Velocity velocity, Tester stepTest) {
+		DummyPhysics physics = new DummyPhysics();
+		Ball ball = physics.createBall();
+		ball.setPosition(position);
+		ball.setVelocity(velocity);
+		for (int i = 0; i < 1000; i++) {
+			physics.step(dt);
+			stepTest.test(ball.getPosition(), ball.getVelocity());
+		}
+		physics.clean();
+	}
+	
+	@Test
+	public void testNoKick() {
+		final Velocity velocity = new Velocity(0, 0, 0);
+		testHelper(centre, velocity, new Tester() {
+
+			@Override
+			public void test(Position s, Velocity v) {
+				assertEquals(centre.x, s.x, EPSILON);
+				assertEquals(centre.y, s.y, EPSILON);
+				assertEquals(centre.z, s.z, EPSILON);
+			}
+		});
+	}
+
+	@Test
+	public void testGroundKicks() {
+		{
+			final Velocity velocity = new Velocity(10, 0, 0); // right
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.x < s.x);
+					assertEquals(centre.y,s.y,EPSILON);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(0, -10, 0); // down
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.y > s.y);
+					assertEquals(centre.x, s.x,EPSILON);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(-10, 0, 0); // left
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.x > s.x);
+					assertEquals(centre.y, s.y,EPSILON);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(0, 10, 0); // up
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.y < s.y);
+					assertEquals(centre.x, s.x,EPSILON);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(10, -10, 0); // down right
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.x < s.x);
+					assertTrue(centre.y > s.y);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(-10, 10, 0); // up left
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.x > s.x);
+					assertTrue(centre.y < s.y);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(10, 10, 0); // up right
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.x < s.x);
+					assertTrue(centre.y < s.y);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(-10, -10, 0); // down left
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.x > s.x);
+					assertTrue(centre.y > s.y);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(50, 0, 0); // right, fast
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.x < s.x);
+					assertEquals(centre.y, s.y,EPSILON);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(0, -50, 0); // down, fast
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.y > s.y);
+					assertEquals(centre.x, s.x,EPSILON);
+				}
+			});
+		}
+	}
 
 	
 	@Test
@@ -55,6 +203,7 @@ public class BallTest {
 		DBody body =  ball.getGeom().getBody();
 				
 		assertEquals(body.getForce(), new DVector3(-2.4999999999999996, 2.4999999999999996, 6.0));
+		
 	}
 
 	
