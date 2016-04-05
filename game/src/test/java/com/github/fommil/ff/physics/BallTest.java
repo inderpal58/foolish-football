@@ -55,7 +55,6 @@ public class BallTest {
 		DBody body =  ball.getGeom().getBody();
 				
 		assertEquals(body.getForce(), new DVector3(-2.4999999999999996, 2.4999999999999996, 6.0));
-		
 	}
 
 	
