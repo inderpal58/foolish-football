@@ -20,6 +20,7 @@ import org.ode4j.ode.DBody;
 import org.ode4j.ode.DGeom;
 import org.ode4j.ode.DSphere;
 
+
 import java.util.Arrays;
 
 import com.github.fommil.ff.Pitch;
@@ -58,6 +59,8 @@ public class BallTest {
 		physics.clean();
 	}
 
+	
+
 	@Test
 	public void testNoKick() {
 		final Velocity velocity = new Velocity(0, 0, 0);
@@ -72,107 +75,205 @@ public class BallTest {
 		});
 	}
 
-	/*
-	 * 
-	 * @Test public void testGravity() throws Exception { fail(
-	 * "test not written"); }
-	 * 
-	 * @Test public void testGroundKicks() { { final Velocity velocity = new
-	 * Velocity(10, 0, 0); // right testHelper(centre, velocity, new Tester() {
-	 * 
-	 * @Override public void test(Position s, Velocity v) { assertTrue(centre.x
-	 * < s.x); assertEquals(centre.y, s.y); } }); } { final Velocity velocity =
-	 * new Velocity(0, -10, 0); // down testHelper(centre, velocity, new
-	 * Tester() {
-	 * 
-	 * @Override public void test(Position s, Velocity v) { assertTrue(centre.y
-	 * > s.y); assertEquals(centre.x, s.x); } }); } { final Velocity velocity =
-	 * new Velocity(-10, 0, 0); // left testHelper(centre, velocity, new
-	 * Tester() {
-	 * 
-	 * @Override public void test(Position s, Velocity v) { assertTrue(centre.x
-	 * > s.x); assertEquals(centre.y, s.y); } }); } { final Velocity velocity =
-	 * new Velocity(0, 10, 0); // up testHelper(centre, velocity, new Tester() {
-	 * 
-	 * @Override public void test(Position s, Velocity v) { assertTrue(centre.y
-	 * < s.y); assertEquals(centre.x, s.x); } }); } { final Velocity velocity =
-	 * new Velocity(10, -10, 0); // down right testHelper(centre, velocity, new
-	 * Tester() {
-	 * 
-	 * @Override public void test(Position s, Velocity v) { assertTrue(centre.x
-	 * < s.x); assertTrue(centre.y > s.y); } }); } { final Velocity velocity =
-	 * new Velocity(-10, 10, 0); // up left testHelper(centre, velocity, new
-	 * Tester() {
-	 * 
-	 * @Override public void test(Position s, Velocity v) { assertTrue(centre.x
-	 * > s.x); assertTrue(centre.y < s.y); } }); } { final Velocity velocity =
-	 * new Velocity(10, 10, 0); // up right testHelper(centre, velocity, new
-	 * Tester() {
-	 * 
-	 * @Override public void test(Position s, Velocity v) { assertTrue(centre.x
-	 * < s.x); assertTrue(centre.y < s.y); } }); } { final Velocity velocity =
-	 * new Velocity(-10, -10, 0); // down left testHelper(centre, velocity, new
-	 * Tester() {
-	 * 
-	 * @Override public void test(Position s, Velocity v) { assertTrue(centre.x
-	 * > s.x); assertTrue(centre.y > s.y); } }); } { final Velocity velocity =
-	 * new Velocity(50, 0, 0); // right, fast testHelper(centre, velocity, new
-	 * Tester() {
-	 * 
-	 * @Override public void test(Position s, Velocity v) { assertTrue(centre.x
-	 * < s.x); assertEquals(centre.y, s.y); } }); } { final Velocity velocity =
-	 * new Velocity(0, -50, 0); // down, fast testHelper(centre, velocity, new
-	 * Tester() {
-	 * 
-	 * @Override public void test(Position s, Velocity v) { assertTrue(centre.y
-	 * > s.y); assertEquals(centre.x, s.x); } }); } }
-	 * 
-	 * @Test public void testAirKicks() { fail("test not written"); // Position
-	 * centre = pitch.getCentre(); // List<DVector3> velocities =
-	 * Lists.newArrayList(); // velocities.add(new DVector3(10, 0, 10)); // 0
-	 * right // velocities.add(new DVector3(0, 10, 10)); // 1 down //
-	 * velocities.add(new DVector3(-10, 0, 10)); // 2 left // velocities.add(new
-	 * DVector3(0, -10, 10)); // 3 up // velocities.add(new DVector3(10, 10,
-	 * 10)); // 4 down right // velocities.add(new DVector3(-10, -10, 10)); // 5
-	 * up left // velocities.add(new DVector3(10, -10, 10)); // 6 up right //
-	 * velocities.add(new DVector3(-10, 10, 10)); // 7 down left //
-	 * velocities.add(new DVector3(500, 0, 100)); // 8 right, fast //
-	 * velocities.add(new DVector3(0, 500, 100)); // 9 down, fast // List<Ball>
-	 * balls = createBalls(velocities.size(), centre); // for (int i = 0; i <
-	 * balls.size(); i++) { // balls.get(i).setVelocity(velocities.get(i)); // }
-	 * // // for (int i = 0; i < 1000; i++) { // List<Position> positions =
-	 * Lists.newArrayList(); // for (Ball ball : balls) { // ball.tick(dt); //
-	 * assertTrue(0.0 <= ball.getPosition().z); //
-	 * positions.add(ball.getPosition()); // } // // assertTrue(centre.x <
-	 * positions.get(0).x); // assertTrue(centre.y < positions.get(1).y); //
-	 * assertTrue(centre.x > positions.get(2).x); // assertTrue(centre.y >
-	 * positions.get(3).y); // assertTrue(centre.x < positions.get(4).x); //
-	 * assertTrue(centre.y < positions.get(4).y); // assertTrue(centre.x >
-	 * positions.get(5).x); // assertTrue(centre.y > positions.get(5).y); //
-	 * assertTrue(centre.x < positions.get(6).x); // assertTrue(centre.y >
-	 * positions.get(6).y); // assertTrue(centre.x > positions.get(7).x); //
-	 * assertTrue(centre.y < positions.get(7).y); // //
-	 * assertTrue(positions.get(0).x < positions.get(8).x); //
-	 * assertTrue(positions.get(1).y < positions.get(9).y); // //
-	 * assertEquals(positions.get(0).x, positions.get(4).x); //
-	 * assertEquals(positions.get(0).x, positions.get(6).x); //
-	 * assertEquals(positions.get(1).y, positions.get(4).y); //
-	 * assertEquals(positions.get(1).y, positions.get(7).y); //
-	 * assertEquals(positions.get(2).x, positions.get(5).x); //
-	 * assertEquals(positions.get(2).x, positions.get(7).x); //
-	 * assertEquals(positions.get(3).y, positions.get(5).y); //
-	 * assertEquals(positions.get(3).y, positions.get(6).y); // } // // for
-	 * (Ball ball : balls) { // assertEquals(0.0, ball.getVelocity().speed());
-	 * // assertEquals(0.0, ball.getPosition().z); // } }
-	 * 
-	 * @Test public void testBendyAftertouch() { fail("test not written"); }
-	 * 
-	 * @Test public void testPowerAftertouch() { fail("test not written"); }
-	 * 
-	 * @Test public void testLiftAftertouch() { fail("test not written"); }
-	 * 
-	 * @Test public void testZone() { fail("test not written"); }
-	 */
+
+  @Test
+	public void testGravity() throws Exception {
+		fail("test not written");
+	}
+	@Test
+	public void testGroundKicks() {
+		{
+			final Velocity velocity = new Velocity(10, 0, 0); // right
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.x < s.x);
+					assertEquals(centre.y, s.y);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(0, -10, 0); // down
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.y > s.y);
+					assertEquals(centre.x, s.x);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(-10, 0, 0); // left
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.x > s.x);
+					assertEquals(centre.y, s.y);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(0, 10, 0); // up
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.y < s.y);
+					assertEquals(centre.x, s.x);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(10, -10, 0); // down right
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.x < s.x);
+					assertTrue(centre.y > s.y);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(-10, 10, 0); // up left
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.x > s.x);
+					assertTrue(centre.y < s.y);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(10, 10, 0); // up right
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.x < s.x);
+					assertTrue(centre.y < s.y);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(-10, -10, 0); // down left
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.x > s.x);
+					assertTrue(centre.y > s.y);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(50, 0, 0); // right, fast
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.x < s.x);
+					assertEquals(centre.y, s.y);
+				}
+			});
+		}
+		{
+			final Velocity velocity = new Velocity(0, -50, 0); // down, fast
+			testHelper(centre, velocity, new Tester() {
+
+				@Override
+				public void test(Position s, Velocity v) {
+					assertTrue(centre.y > s.y);
+					assertEquals(centre.x, s.x);
+				}
+			});
+		}
+	}
+
+	@Test
+	public void testAirKicks() {
+		fail("test not written");
+//		Position centre = pitch.getCentre();
+//		List<DVector3> velocities = Lists.newArrayList();
+//		velocities.add(new DVector3(10, 0, 10)); // 0 right
+//		velocities.add(new DVector3(0, 10, 10)); // 1 down
+//		velocities.add(new DVector3(-10, 0, 10)); // 2 left
+//		velocities.add(new DVector3(0, -10, 10)); // 3 up
+//		velocities.add(new DVector3(10, 10, 10)); // 4 down right
+//		velocities.add(new DVector3(-10, -10, 10)); // 5 up left
+//		velocities.add(new DVector3(10, -10, 10)); // 6 up right
+//		velocities.add(new DVector3(-10, 10, 10)); // 7 down left
+//		velocities.add(new DVector3(500, 0, 100)); // 8 right, fast
+//		velocities.add(new DVector3(0, 500, 100)); // 9 down, fast
+//		List<Ball> balls = createBalls(velocities.size(), centre);
+//		for (int i = 0; i < balls.size(); i++) {
+//			balls.get(i).setVelocity(velocities.get(i));
+//		}
+//
+//		for (int i = 0; i < 1000; i++) {
+//			List<Position> positions = Lists.newArrayList();
+//			for (Ball ball : balls) {
+//				ball.tick(dt);
+//				assertTrue(0.0 <= ball.getPosition().z);
+//				positions.add(ball.getPosition());
+//			}
+//
+//			assertTrue(centre.x < positions.get(0).x);
+//			assertTrue(centre.y < positions.get(1).y);
+//			assertTrue(centre.x > positions.get(2).x);
+//			assertTrue(centre.y > positions.get(3).y);
+//			assertTrue(centre.x < positions.get(4).x);
+//			assertTrue(centre.y < positions.get(4).y);
+//			assertTrue(centre.x > positions.get(5).x);
+//			assertTrue(centre.y > positions.get(5).y);
+//			assertTrue(centre.x < positions.get(6).x);
+//			assertTrue(centre.y > positions.get(6).y);
+//			assertTrue(centre.x > positions.get(7).x);
+//			assertTrue(centre.y < positions.get(7).y);
+//
+//			assertTrue(positions.get(0).x < positions.get(8).x);
+//			assertTrue(positions.get(1).y < positions.get(9).y);
+//
+//			assertEquals(positions.get(0).x, positions.get(4).x);
+//			assertEquals(positions.get(0).x, positions.get(6).x);
+//			assertEquals(positions.get(1).y, positions.get(4).y);
+//			assertEquals(positions.get(1).y, positions.get(7).y);
+//			assertEquals(positions.get(2).x, positions.get(5).x);
+//			assertEquals(positions.get(2).x, positions.get(7).x);
+//			assertEquals(positions.get(3).y, positions.get(5).y);
+//			assertEquals(positions.get(3).y, positions.get(6).y);
+//		}
+//
+//		for (Ball ball : balls) {
+//			assertEquals(0.0, ball.getVelocity().speed());
+//			assertEquals(0.0, ball.getPosition().z);
+//		}
+	}
+
+	@Test
+	public void testBendyAftertouch() {
+		fail("test not written");
+	}
+
+	@Test
+	public void testPowerAftertouch() {
+		fail("test not written");
+	}
+	
+	@Test
+	public void testLiftAftertouch() {
+		fail("test not written");
+	}
+
+	@Test
+	public void testZone() {
+		fail("test not written");
+	}
+	
 	@Test
 	public void testAfertouch() {
 		DummyPhysics physics = new DummyPhysics();
@@ -180,18 +281,21 @@ public class BallTest {
 		Collection<Aftertouch> aftertouches = new HashSet<Aftertouch>();
 		ball.setAftertouch(true);
 
-		ball.setVelocity(new Velocity(150, 150, 150));
-
+		ball.setVelocity(new Velocity(150,150,150));
+		
 		aftertouches.add(Aftertouch.UP);
 		aftertouches.add(Aftertouch.DOWN);
-
+	
 		aftertouches.add(Aftertouch.LEFT);
 		aftertouches.add(Aftertouch.LEFT);
+		
 
 		ball.setAftertouch(aftertouches);
-		DBody body = ball.getGeom().getBody();
-
+		DBody body =  ball.getGeom().getBody();
+				
 		assertEquals(body.getForce(), new DVector3(-2.4999999999999996, 2.4999999999999996, 6.0));
+		
 	}
 
+	
 }
