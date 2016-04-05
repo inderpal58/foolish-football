@@ -41,7 +41,6 @@ public class PlayerTest {
 	private static final double dt = 0.01;
 
 	interface Tester {
-
 		void test(Position s, Velocity v);
 	}
 
