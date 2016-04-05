@@ -22,7 +22,7 @@ public class mainTest {
 
 	@Test
 	public void playerWinSmoke() throws IOException, InterruptedException {
-		//initiate game
+		// initiate game
 		Main.main(null);
 
 		Thread.sleep(3000);

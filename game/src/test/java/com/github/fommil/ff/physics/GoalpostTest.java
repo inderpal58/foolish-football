@@ -24,7 +24,6 @@ import org.ode4j.ode.DBody;
 import org.ode4j.ode.DGeom;
 import org.ode4j.ode.DSphere;
 
-
 import java.util.Arrays;
 
 import com.github.fommil.ff.Pitch;
@@ -32,6 +31,7 @@ import static org.junit.Assert.*;
 
 import java.util.Collection;
 import java.util.HashSet;
+
 public class GoalpostTest {
 
 	private static final Logger log = Logger.getLogger(GoalpostTest.class.getName());
@@ -58,24 +58,23 @@ public class GoalpostTest {
 		}
 		physics.clean();
 	}
-	
+
 	@Test
 	public void createGoalpost_North() {
 		Goalpost gp = new DummyPhysics().createGoalpost(Direction.NORTH);
-		assertEquals(gp.getFacing(),Direction.NORTH);
+		assertEquals(gp.getFacing(), Direction.NORTH);
 	}
-	
+
 	@Test
 	public void createGoalpost_South() {
 		Goalpost gp = new DummyPhysics().createGoalpost(Direction.SOUTH);
-		assertEquals(gp.getFacing(),Direction.SOUTH);
+		assertEquals(gp.getFacing(), Direction.SOUTH);
 	}
-	
-	
+
 	@Test
 	public void newBallIsNotInside() {
 		Ball ball = new DummyPhysics().createBall();
 		Goalpost gp = new DummyPhysics().createGoalpost(Direction.NORTH);
-		assertFalse(gp.isInside(ball));	
+		assertFalse(gp.isInside(ball));
 	}
 }

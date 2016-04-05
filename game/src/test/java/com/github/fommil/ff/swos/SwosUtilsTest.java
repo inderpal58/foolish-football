@@ -12,63 +12,57 @@ import org.junit.Test;
 import com.github.fommil.ff.swos.SwosUtils;
 
 public class SwosUtilsTest {
-	
+
 	@BeforeClass
-	public static void setUp() throws IOException
-	{
+	public static void setUp() throws IOException {
 		SwosUtils.main(null);
 	}
-	
+
 	@Test
-	public void verifyGamePalImage()
-	{
+	public void verifyGamePalImage() {
 
 		File folder = new File("data/sprites");
 
-		// this is the filter 
+		// this is the filter
 		FilenameFilter pitchFilter = new FilenameFilter() {
-		 public boolean accept(File dir, String name) {
-		   return name.toLowerCase().contains("gamepal");
-		 }
+			public boolean accept(File dir, String name) {
+				return name.toLowerCase().contains("gamepal");
+			}
 		};
 
 		// list the files in the data folder
 		String[] filenames = folder.list(pitchFilter);
-		
+
 		assertEquals(filenames.length, 1);
-		
+
 	}
-	
-	
+
 	@Test
-	public void verifyPalImage()
-	{
+	public void verifyPalImage() {
 
 		File folder = new File("data/sprites");
 
-		// this is the filter 
+		// this is the filter
 		FilenameFilter pitchFilter = new FilenameFilter() {
-		 public boolean accept(File dir, String name) {
-		   return name.toLowerCase().contentEquals("pal.png");
-		 }
+			public boolean accept(File dir, String name) {
+				return name.toLowerCase().contentEquals("pal.png");
+			}
 		};
 
 		// list the files in the data folder
 		String[] filenames = folder.list(pitchFilter);
-		
+
 		assertEquals(filenames.length, 1);
-		
+
 	}
-	
-	
+
 	@Test
-	public void fileToByte() throws IOException
-	{
-	
-		byte[] bytes= SwosUtils.getBytes(new File("data/sprites/gamepal.png"));
-		
+	public void fileToByte() throws IOException {
+
+		byte[] bytes = SwosUtils.getBytes(new File("data/sprites/gamepal.png"));
+
 		assertEquals(bytes.length, 623);
-		
+
 	}
 
 }

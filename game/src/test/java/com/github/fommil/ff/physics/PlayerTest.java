@@ -59,128 +59,113 @@ public class PlayerTest {
 
 	@Test
 	public void testKick() throws Exception {
-		
-		Player p = new DummyPhysics().createPlayer(5,new PlayerStats());
+
+		Player p = new DummyPhysics().createPlayer(5, new PlayerStats());
 		Ball ball = new DummyPhysics().createBall();
-		ball.setVelocity(new Velocity(0,0,0));
+		ball.setVelocity(new Velocity(0, 0, 0));
 		p.kick(ball);
-		assertEquals(ball.getVelocity(),new Velocity(0.0,10.0,5.0));
-		
+		assertEquals(ball.getVelocity(), new Velocity(0.0, 10.0, 5.0));
+
 	}
 	/*
-	@Test
-	public void testActions_PlayerStateRUN() {
-		Player p = new DummyPhysics().createPlayer(5,new PlayerStats());
-		Collection<Action> actions = new HashSet<Action>();
-		actions.add(Action.RIGHT);
-		actions.add(Action.LEFT);
-		actions.add(Action.DOWN);
-		actions.add(Action.UP);
-		actions.add(Action.TACKLE);
-		p.setState(PlayerState.RUN);
-		p.setOpponent(Direction.NORTH);
-		p.setActions(actions);
-		assertEquals(p.getVelocity(),new Velocity(0.0,0.0,0.0));			
-	}
-	*/
-	
-/*
-	@Test
-	public void testRun() throws Exception {
-		Position centre = pitch.getCentre();
-		List<Collection<Action>> actions = Lists.newArrayList();
-		actions.add(Sets.immutableEnumSet(Action.RIGHT)); // 0
-		actions.add(Sets.immutableEnumSet(Action.DOWN));  // 1
-		actions.add(Sets.immutableEnumSet(Action.LEFT));  // 2
-		actions.add(Sets.immutableEnumSet(Action.UP));    // 3
-		actions.add(Sets.immutableEnumSet(Action.DOWN, Action.RIGHT)); // 4
-		actions.add(Sets.immutableEnumSet(Action.UP, Action.LEFT));    // 5
-		actions.add(Sets.immutableEnumSet(Action.UP, Action.RIGHT));   // 6
-		actions.add(Sets.immutableEnumSet(Action.DOWN, Action.LEFT));  // 7
-		actions.add(EnumSet.noneOf(Action.class));  // 7
+	 * @Test public void testActions_PlayerStateRUN() { Player p = new
+	 * DummyPhysics().createPlayer(5,new PlayerStats()); Collection<Action>
+	 * actions = new HashSet<Action>(); actions.add(Action.RIGHT);
+	 * actions.add(Action.LEFT); actions.add(Action.DOWN);
+	 * actions.add(Action.UP); actions.add(Action.TACKLE);
+	 * p.setState(PlayerState.RUN); p.setOpponent(Direction.NORTH);
+	 * p.setActions(actions); assertEquals(p.getVelocity(),new
+	 * Velocity(0.0,0.0,0.0)); }
+	 */
 
-		fail("test not written");
+	/*
+	 * @Test public void testRun() throws Exception { Position centre =
+	 * pitch.getCentre(); List<Collection<Action>> actions =
+	 * Lists.newArrayList(); actions.add(Sets.immutableEnumSet(Action.RIGHT));
+	 * // 0 actions.add(Sets.immutableEnumSet(Action.DOWN)); // 1
+	 * actions.add(Sets.immutableEnumSet(Action.LEFT)); // 2
+	 * actions.add(Sets.immutableEnumSet(Action.UP)); // 3
+	 * actions.add(Sets.immutableEnumSet(Action.DOWN, Action.RIGHT)); // 4
+	 * actions.add(Sets.immutableEnumSet(Action.UP, Action.LEFT)); // 5
+	 * actions.add(Sets.immutableEnumSet(Action.UP, Action.RIGHT)); // 6
+	 * actions.add(Sets.immutableEnumSet(Action.DOWN, Action.LEFT)); // 7
+	 * actions.add(EnumSet.noneOf(Action.class)); // 7
+	 * 
+	 * fail("test not written");
+	 * 
+	 * }
+	 * 
+	 * @Test public void testHead() throws Exception { fail("test not written");
+	 * }
+	 * 
+	 * @Test public void testTackle() throws Exception { fail("test not written"
+	 * ); } }
+	 */
 
-	}
-	
-	@Test
-	public void testHead() throws Exception {
-		fail("test not written");
-	}
-
-	@Test
-	public void testTackle() throws Exception {
-		fail("test not written");
-	}
-}
-	*/
-	
 	@Test
 	public void playerState_OUT_OF_CONTROL() {
-		Player p = new DummyPhysics().createPlayer(5,new PlayerStats());
-		
+		Player p = new DummyPhysics().createPlayer(5, new PlayerStats());
+
 		p.body.setAngularVel(5, 5, 5);
 		p.body.setPosition(0.5, 0.5, 0.5);
 		p.body.setLinearVel(5, 5, 5);
-		
-		assertEquals(p.getState(),Player.PlayerState.OUT_OF_CONTROL);		
+
+		assertEquals(p.getState(), Player.PlayerState.OUT_OF_CONTROL);
 	}
-	
+
 	@Test
 	public void playerState_HEAD_START() {
-		Player p = new DummyPhysics().createPlayer(5,new PlayerStats());
-		
+		Player p = new DummyPhysics().createPlayer(5, new PlayerStats());
+
 		p.body.setAngularVel(0, 0, 0);
 		p.body.setPosition(0.5, 0.5, 0.5);
 		p.body.setLinearVel(5, 5, 5);
-		
-		assertEquals(p.getState(),Player.PlayerState.HEAD_START);		
+
+		assertEquals(p.getState(), Player.PlayerState.HEAD_START);
 	}
-	
+
 	@Test
 	public void playerState_HEAD_MID() {
-		Player p = new DummyPhysics().createPlayer(5,new PlayerStats());
-		
+		Player p = new DummyPhysics().createPlayer(5, new PlayerStats());
+
 		p.body.setAngularVel(0, 0, 0);
-		p.body.setPosition(1.7,1.7, 1.2);
+		p.body.setPosition(1.7, 1.7, 1.2);
 		p.body.setLinearVel(5, 5, 5);
-		
-		assertEquals(p.getState(),Player.PlayerState.HEAD_MID);		
+
+		assertEquals(p.getState(), Player.PlayerState.HEAD_MID);
 	}
-	
+
 	@Test
 	public void playerState_HEAD_END() {
-		Player p = new DummyPhysics().createPlayer(5,new PlayerStats());
-		
+		Player p = new DummyPhysics().createPlayer(5, new PlayerStats());
+
 		p.body.setAngularVel(0, 0, 0);
-		p.body.setPosition(2,2,2);
+		p.body.setPosition(2, 2, 2);
 		p.body.setLinearVel(5, 5, -1);
-		
-		assertEquals(p.getState(),Player.PlayerState.HEAD_END);		
-		
-		p.body.setPosition(2,2,2);
+
+		assertEquals(p.getState(), Player.PlayerState.HEAD_END);
+
+		p.body.setPosition(2, 2, 2);
 		p.body.setLinearVel(5, 5, 5);
-		
-		assertEquals(p.getState(),Player.PlayerState.HEAD_END);	
+
+		assertEquals(p.getState(), Player.PlayerState.HEAD_END);
 	}
-	
+
 	@Test
 	public void playerState_RUN() {
-		Player p = new DummyPhysics().createPlayer(5,new PlayerStats());
-		
+		Player p = new DummyPhysics().createPlayer(5, new PlayerStats());
+
 		p.body.setAngularVel(0, 0, 0);
-		p.body.setPosition(2,2,0.5);
+		p.body.setPosition(2, 2, 0.5);
 		p.body.setLinearVel(5, 5, -1);
-		
-		assertEquals(p.getState(),Player.PlayerState.RUN);	
+
+		assertEquals(p.getState(), Player.PlayerState.RUN);
 	}
-	
-	
-	
+
 	@Test
 	public void createPlayer() {
-		Player p = new DummyPhysics().createPlayer(5,new PlayerStats());
-		assertEquals(p.getShirt(),5);
+		Player p = new DummyPhysics().createPlayer(5, new PlayerStats());
+		assertEquals(p.getShirt(), 5);
 		assertNull(p.getTeam());
 	}
 }
